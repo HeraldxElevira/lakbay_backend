@@ -26,3 +26,18 @@ def get_current_user(authorization: str = Header(None)):
         )
 
     return payload
+
+
+def get_current_user_optional(authorization: str = Header(None)):
+    if not authorization:
+        return None
+
+    if not authorization.startswith("Bearer "):
+        return None
+
+    try:
+        token = authorization.split(" ")[1]
+        payload = verify_token(token)
+        return payload
+    except Exception:
+        return None

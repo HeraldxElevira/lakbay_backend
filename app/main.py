@@ -9,7 +9,18 @@ from app.groups.travel_groups import router as travel_groups_router
 from app.itinerary.itinerary_days import router as itinerary_days_router
 from app.itinerary.itinerary_tasks import router as itinerary_tasks_router
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="Lakbay+ Backend",)
+
+# Configure CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(auth_router)
 app.include_router(ai_router)
