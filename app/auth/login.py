@@ -21,7 +21,7 @@ def login(user: UserLogin):
         email = user.email.strip().lower()
 
         cur.execute("""
-            SELECT user_id, email, password
+            SELECT user_id, email, password, name
             FROM users
             WHERE email = %s
         """, (email,))
@@ -34,7 +34,7 @@ def login(user: UserLogin):
                 detail="User not found"
             )
 
-        user_id, db_email, hashed_password = result
+        user_id, db_email, hashed_password, name = result
 
         if not verify_password(user.password, hashed_password):
             raise HTTPException(
@@ -50,7 +50,9 @@ def login(user: UserLogin):
         return {
             "message": "Login successful",
             "access_token": token,
-            "token_type": "bearer"
+            "token_type": "bearer",
+            "name": name if name else "Juan Dela Cruz",
+            "email": db_email
         }
 
     except HTTPException:
