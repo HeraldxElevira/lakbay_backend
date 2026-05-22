@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Sensitive Configs
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
